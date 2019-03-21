@@ -1,44 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
+
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
-  }
+    marginRight: 20,
+  },
 };
 
 function ButtonAppBar(props) {
-  const { classes } = props;
+  const { classes, cartItems, cartTotal } = props;
+
   return (
     <div className={classes.root}>
       <AppBar color="default" position="static">
         <Toolbar>
-          {/* <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton> */}
-          <Typography variant="h5" color="inherit" className={classes.grow}>
-            <span style={{ fontWeight: 700, color: "#148FE2" }}>demo</span>
-            <span style={{ fontWeight: 700, color: "#FBCC48" }}>me</span>
-          </Typography>
-          <Button color="inherit">Login</Button>
+          <Link href="/">
+            <Typography variant="h5" color="inherit" className={classes.grow}>
+              <span style={{ fontWeight: 700, color: "#148FE2" }}>demo</span>
+              <span style={{ fontWeight: 700, color: "#FBCC48" }}>me</span>
+            </Typography>
+          </Link>
+
+          <Link href="/cart" prefetch>
+            <Button color="inherit">
+              Cart {cartItems} ${cartTotal}
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
@@ -46,7 +47,7 @@ function ButtonAppBar(props) {
 }
 
 ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ButtonAppBar);
